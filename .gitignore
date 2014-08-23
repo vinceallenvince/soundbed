@@ -1,0 +1,11 @@
+#### FOLDERS ####
+node_modules
+reports
+doc
+release
+
+#### FILES ####
+*.log
+*.DS_Store
+*.swp
+*.map

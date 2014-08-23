@@ -1,0 +1,38 @@
+{
+  "name": "soundbed",
+  "version": "0.1.0",
+  "description": "An ambient audio generator.",
+  "keywords": "utilities",
+  "main": "./src/soundbed.js",
+  "devDependencies": {
+    "browserify": "^4.1.10",
+    "coverify": "^1.0.7",
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-exec": "~0.4.6",
+    "grunt-jsdoc": "~0.4.0",
+    "grunt-plato": "~0.2.1",
+    "phantomjs": "^1.9.7-8",
+    "tap": "^0.4.11",
+    "tape": "^2.13.3",
+    "testling": "^1.6.1"
+  },
+  "scripts": {
+    "test": "browserify test/*.js | testling"
+  },
+  "homepage": "http://github.com/vinceallenvince/soundbed",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/vinceallenvince/soundbed"
+  },
+  "author": {
+    "name": "Vince Allen",
+    "address": "Brooklyn, NY",
+    "email": "vince@vinceallen.com",
+    "twitter": "@vinceallenvince"
+  },
+  "license": "MIT"
+}
