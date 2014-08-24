@@ -66,17 +66,23 @@ You can pass the following options when initializing a Player.
 
  *    perlin (default = true)
 
-      When set to true, the oscillators' frequency cycles via Perlin noise.
+      When set to true, the oscillators' frequencies cycle via Perlin noise.
 
  *    reverb
 
       Reverb level. Valid values are 0 - 5 and map to the following:
-      0 - none
-      1 - inverse
-      2 - small
-      3 - medium
-      4 - large
-      5 - huge
+
+      0 = none
+
+      1 = inverse
+
+      2 = small
+
+      3 = medium
+
+      4 = large
+
+      5 = huge
 
 
  *    delayTime (default = 0)

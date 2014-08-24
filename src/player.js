@@ -28,7 +28,7 @@ Player.audio_context = null;
 /**
  * Configures an audio context.
  * @param {Object} [opt_options=] A map of initial properties.
- * @param {boolean} [opt_options.perlin = true] Set to true chnage the oscillators' frequency via Perlin noise.
+ * @param {boolean} [opt_options.perlin = true] When set to true, the oscillators' frequencies cycle via Perlin noise.
  * @param {number} [opt_options.reverb = 4] Reverb level.
  * @param {number} [opt_options.delayTime = 0] Delay time.
  * @param {number} [opt_options.oscAFreq = 150] Oscillator A's initial frequency.
