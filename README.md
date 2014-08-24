@@ -26,11 +26,11 @@ You can also use the [standalone version](https://github.com/vinceallenvince/sou
 
 ##Usage
 
-The module exports a SoundBed class. In a nodejs project, you access it via:
+The module exports a SoundBed class. In a nodejs project, you create a player via:
 
 ```
 var SoundBed = require('../src/soundbed');
-var soundbed = new SoundBed();
+var player = new SoundBed.Player();
 ```
 
 In the browser, the SoundBed namespace is exposed.
@@ -64,10 +64,12 @@ By default, a SoundBed player creates two Web Audio [Oscillator](http://webaudio
 
 You can pass the following options when initializing a Player.
 
- *    perlin  (default = true)
-      Set to true chnage the oscillators' frequency via Perlin noise.
+ *    perlin (default = true)
+
+      When set to true, the oscillators' frequency cycles via Perlin noise.
 
  *    reverb
+
       Reverb level. Valid values are 0 - 5 and map to the following:
       0 - none
       1 - inverse
@@ -78,33 +80,43 @@ You can pass the following options when initializing a Player.
 
 
  *    delayTime (default = 0)
+
       Delay time.
 
  *    oscAFreq (default = 150)
+
       Oscillator A's initial frequency.
 
  *    oscBFreq (default = 200)
+
       Oscillator B's initial frequency.
 
  *    oscARate (default = 0.001)
+
       Oscillator A's cycle rate through its frequency's min/max.
 
  *    oscBRate (default = -0.001)
+
       Oscillator B's cycle rate through its frequency's min/max.
 
  *    freqMin (default = 150)
+
       The oscillators' minimum frequency.
 
  *    freqMax (default = 200)
+
       The oscillators' maximum frequency.
 
  *    volume (default = 0.25)
+
       The player's initial volume. Valid values between 0 and 1.
 
  *    volumeMin (default = 0.1)
+
       The player's minimum volume. Valid values between 0 and 1.
 
  *    volumeMax (default = 0.25)
+
       The player's maximum volume. Valid values between 0 and 1.
 
 

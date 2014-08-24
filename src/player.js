@@ -7,6 +7,8 @@ var Convolver = require('./convolver'),
     SimplexNoise = require('quietriot'),
     Utils = require('drawing-utils-lib');
 
+// TODO: create play/pause methods
+
 /**
  * Creates a Player.
  * @constructor
