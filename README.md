@@ -2,7 +2,9 @@
 
 # soundbed
 
-An ambient audio generator that uses the Web Audio API.
+An ambient audio generator.
+
+Use SoundBed to generate audio for animation, simulations or general ambient effects in a web browser. The module uses the [Web Audo API](http://webaudio.github.io/web-audio-api/) and by default will generate a low volume hum that naturally varies in frequency. Use the options below for different configurations. Your browser [must support](http://caniuse.com/#feat=audio-api) the Web Audio API.
 
 ##Install
 
@@ -58,7 +60,7 @@ In the browser, the SoundBed namespace is exposed.
 
 ##Configure
 
-By default, a SoundBed player creates two Web Audio Oscillator nodes and cycles their frequencies in opposite directions inside an RequestAnimationFrame loop. Each frame it maps Perlin noise to a minimum/maximum range to determine the frequency.
+By default, a SoundBed player creates two Web Audio [Oscillator](http://webaudio.github.io/web-audio-api/#the-oscillatornode-interface) nodes and cycles their frequencies in opposite directions inside an [RequestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame) loop. Each frame it maps [Perlin noise](http://en.wikipedia.org/wiki/Perlin_noise) to a minimum/maximum range to determine the frequency.
 
 You can pass the following options when initializing a Player.
 
