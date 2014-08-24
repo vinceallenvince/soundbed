@@ -10,3 +10,24 @@ before_deploy: echo 'ready?'
 after_deploy:
 - echo 'done!'
 - ./deploy-gh-pages.sh
+deploy:
+- provider: npm
+  email: vince@vinceallen.com
+  api_key:
+    secure: HPYONkvLf5tn0MsgHXNRChS4daQMSVaTsTFpNfB/x0lglXCWqWTsr9FIF5o6sof4GIsBc2C0eeN6EYLm/lKvNU/xiIJ+2jLlLoQQAVkKsbjrA5YglnEAs+hDFxLHO3wDUPX3inEB3hWTAcHcp1Ay7hx7bJ+kktOwZG/AQC92i3Y=
+  on:
+    tags: true
+    all_branches: true
+    repo: vinceallenvince/soundbed
+- provider: releases
+  api_key:
+    secure: V8L9OAQSSvJs2sLhL9qeN03xV4imPaPMPNb1PKL08npy4Cf0IbOlt+NLh52rhSuJlzk48OnXsxz0VCm3cTZYT3dkCfQ/Vs8olXzOf7aJ3I0wKBOugwHeMcS83W2iV0SevbMwi0a8tQRd1wk4v8kECZAAHWAHbTEelB2juHvGM/I=
+  file: release/soundbed.min.js
+  on:
+    tags: true
+    all_branches: true
+    repo: vinceallenvince/soundbed
+env:
+  global:
+  - GH_REF: github.com/vinceallenvince/soundbed.git
+  - secure: ZLqSZ6DXP0D+fHuvPYhc9/uDv26O7VxI63KsgrOt5xoLF1hMLXMb+AZA8Jh/NRFbJ9bY/uB6PTzovr6x9xkESIwf9bYfH5jkLVt35Lkd7bM7VD/wbeMIASpwEGOxCa1woLnCL6TVnxvE5RbJNhzPEB10pWBeZV8MFTZGjS0YSdQ=

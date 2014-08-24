@@ -2,7 +2,7 @@
 
 # soundbed
 
-This is a work in progress.
+An ambient audio generator that uses the Web Audio API.
 
 ##Install
 
