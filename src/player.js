@@ -57,8 +57,8 @@ Player.prototype.init = function(opt_options) {
   this.freqMin = typeof options.freqMin !== 'undefined' ? options.freqMin : 150;
   this.freqMax = typeof options.freqMax !== 'undefined' ? options.freqMax : 200;
   this.volume = typeof options.volume !== 'undefined' ? options.volume : 0.25;
-  this.volumeMin = typeof options.volumeMin !== 'undefined' ? options.volumeMin : 0.1;
-  this.volumeMax = typeof options.volumeMax !== 'undefined' ? options.volumeMax : 0.25;
+  this.volumeMin = typeof options.volumeMin !== 'undefined' ? options.volumeMin : 0.5;
+  this.volumeMax = typeof options.volumeMax !== 'undefined' ? options.volumeMax : 0.75;
   this.beforeStep = options.beforeStep || function() {};
 
   this.gain = new Gain(audio_context);
