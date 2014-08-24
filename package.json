@@ -1,6 +1,6 @@
 {
   "name": "soundbed",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An ambient audio generator.",
   "keywords": "utilities",
   "main": "main.js",
