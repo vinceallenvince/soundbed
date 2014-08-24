@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Index</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Index</h1>
+    
+    
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p><img src="https://travis-ci.org/vinceallenvince/soundbed.svg?branch=master" alt="Build status"></p>
+<h1>soundbed</h1>
+<p>An ambient audio generator.</p>
+<p>Use SoundBed to generate audio for animation, simulations or general ambient effects in a web browser. The module uses the <a href="http://webaudio.github.io/web-audio-api/">Web Audo API</a> and by default will generate a low, rumbling hum that naturally varies in frequency. Use the options below for different configurations. Your browser <a href="http://caniuse.com/#feat=audio-api">must support</a> the Web Audio API.</p>
+<h2>Install</h2>
+<p>To include soundbed as a component in your project, use the node module.</p>
+<pre><code>npm install soundbed --save</code></pre>
+<p>You can also use the <a href="https://github.com/vinceallenvince/soundbed/releases/latest">standalone version</a> and reference the js file from your document.</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;script src=&quot;scripts/soundbed.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  ...</code></pre>
+<h2>Usage</h2>
+<p>The module exports a SoundBed class. In a nodejs project, you create a player via:</p>
+<pre><code>var SoundBed = require('../src/soundbed');
+var player = new SoundBed.Player();</code></pre>
+<p>In the browser, the SoundBed namespace is exposed.</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;script src=&quot;scripts/soundbed.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+      var player = new SoundBed.Player();
+      player.init({
+        oscAFreq: 60,
+        oscBFreq: 120,
+        oscARate: 0.01,
+        oscBRate: -0.01,
+        freqMin: 60,
+        freqMax: 120,
+        volumeMin: 0.1,
+        volumeMax: 1
+      });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2>Configure</h2>
+<p>By default, a SoundBed player creates two Web Audio <a href="http://webaudio.github.io/web-audio-api/#the-oscillatornode-interface">Oscillator</a> nodes and cycles their frequencies in opposite directions inside an <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame">RequestAnimationFrame</a> loop. In each frame the player maps <a href="http://en.wikipedia.org/wiki/Perlin_noise">Perlin noise</a> to a minimum/maximum range to determine the frequency. It also cycles the overall volume using the Perlin values.</p>
+<p>You can pass the following options when initializing a Player.</p>
+<ul>
+<li><p><em>perlin</em> (default = true)</p>
+<p>When set to true, the oscillators' frequencies cycle via Perlin noise.</p>
+</li>
+<li><p><em>reverb</em></p>
+<p>Reverb level. Valid values are 0 - 5 and map to the following:</p>
+<p>0 = none</p>
+<p>1 = inverse</p>
+<p>2 = small</p>
+<p>3 = medium</p>
+<p>4 = large</p>
+<p>5 = huge</p>
+</li>
+</ul>
+<ul>
+<li><p><em>delayTime</em> (default = 0)</p>
+<p>Delay time.</p>
+</li>
+<li><p><em>oscAFreq</em> (default = 150)</p>
+<p>Oscillator A's initial frequency.</p>
+</li>
+<li><p><em>oscBFreq</em> (default = 200)</p>
+<p>Oscillator B's initial frequency.</p>
+</li>
+<li><p><em>oscARate</em> (default = 0.001)</p>
+<p>Oscillator A's cycle rate through its frequency min/max.</p>
+</li>
+<li><p><em>oscBRate</em> (default = -0.001)</p>
+<p>Oscillator B's cycle rate through its frequency min/max.</p>
+</li>
+<li><p><em>freqMin</em> (default = 150)</p>
+<p>Both oscillators' minimum frequency.</p>
+</li>
+<li><p><em>freqMax</em> (default = 200)</p>
+<p>Both oscillators' maximum frequency.</p>
+</li>
+<li><p><em>volume</em> (default = 0.25)</p>
+<p>The player's initial volume. Valid values between 0 and 1.</p>
+</li>
+<li><p><em>volumeMin</em> (default = 0.1)</p>
+<p>The player's minimum volume. Valid values between 0 and 1.</p>
+</li>
+<li><p><em>volumeMax</em> (default = 0.25)</p>
+<p>The player's maximum volume. Valid values between 0 and 1.</p>
+</li>
+<li><p><em>beforeStep</em> (default = function() {})</p>
+<p>A function called at the beginning of each animation frame.</p>
+</li>
+</ul>
+<p>Please review <a href="http://vinceallenvince.github.io/soundbed/doc/">the docs</a> or check out the <a href="http://vinceallenvince.github.io/soundbed/">examples</a>.</p>
+<h2>Building this project</h2>
+<p>This project uses <a href="http://gruntjs.com">Grunt</a>. To build the project first install the node modules.</p>
+<pre><code>npm install</code></pre>
+<p>Next, run grunt.</p>
+<pre><code>grunt</code></pre>
+<p>To run the tests, run 'npm test'.</p>
+<pre><code>npm test</code></pre>
+<p>To check test coverage run 'grunt coverage'.</p>
+<pre><code>grunt coverage</code></pre>
+<p>A pre-commit hook is defined in /pre-commit that runs jshint. To use the hook, run the following:</p>
+<pre><code>ln -s ../../pre-commit .git/hooks/pre-commit</code></pre>
+<p>A post-commit hook is defined in /post-commit that runs the Plato complexity analysis tools. To use the hook, run the following:</p>
+<pre><code>ln -s ../../post-commit .git/hooks/post-commit</code></pre>
+<p>View the <a href="http://vinceallenvince.github.io/soundbed/reports/">code complexity</a> report.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="BiquadFilter.html">BiquadFilter</a></li><li><a href="Convolver.html">Convolver</a></li><li><a href="Delay.html">Delay</a></li><li><a href="Gain.html">Gain</a></li><li><a href="Oscillator.html">Oscillator</a></li><li><a href="Player.html">Player</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Aug 24 2014 20:23:29 GMT-0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

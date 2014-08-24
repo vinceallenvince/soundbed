@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome-ie7.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/jsoverson/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>player.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
+      <p class="stat">62.14</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
+      <p class="stat">142</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
+      <p class="stat">36.13</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
+      <p class="stat">1.44</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/*jshint -W056 */
+
+var Convolver = require(&#039;./convolver&#039;),
+    Delay = require(&#039;./delay&#039;),
+    Gain = require(&#039;./gain&#039;),
+    Oscillator = require(&#039;./oscillator&#039;),
+    SimplexNoise = require(&#039;quietriot&#039;),
+    Utils = require(&#039;drawing-utils-lib&#039;);
+
+// TODO: create play/pause methods
+
+/**
+ * Creates a Player.
+ * @constructor
+ */
+function Player() {
+  this.name = &#039;Player&#039;;
+  this.gain = null;
+  this.oscA = null;
+  this.oscB = null;
+  this.convolver = null;
+  this.delay = null;
+  this.clock = 0;
+}
+
+Player.audio_context = null;
+
+/**
+ * Configures an audio context.
+ * @param {Object} [opt_options=] A map of initial properties.
+ * @param {boolean} [opt_options.perlin = true] When set to true, the oscillators&#039; frequencies cycle via Perlin noise.
+ * @param {number} [opt_options.reverb = 4] Reverb level.
+ * @param {number} [opt_options.delayTime = 0] Delay time.
+ * @param {number} [opt_options.oscAFreq = 150] Oscillator A&#039;s initial frequency.
+ * @param {number} [opt_options.oscBFreq = 200] Oscillator B&#039;s initial frequency.
+ * @param {number} [opt_options.oscARate = 0.001] Oscillator A&#039;s cycle rate through its frequency min/max.
+ * @param {number} [opt_options.oscBRate = -0.001] Oscillator B&#039;s cycle rate through its frequency min/max.
+ * @param {number} [opt_options.freqMin = 150] The oscillators&#039; minimum frequency.
+ * @param {number} [opt_options.freqMax = 200] The oscillators&#039; maximum frequency.
+ * @param {number} [opt_options.volume = 0.25] The player&#039;s initial volume. Valid values between 0 and 1.
+ * @param {number} [opt_options.volumeMin = 0.1] The player&#039;s minimum volume. Valid values between 0 and 1.
+ * @param {number} [opt_options.volumeMax= 0.25] The player&#039;s maximum volume. Valid values between 0 and 1.
+ * @param {Function} [opt_options.beforeStep = function() {}] A function called at the beginning of each animation frame.
+ */
+Player.prototype.init = function(opt_options) {
+
+  var options = opt_options || {};
+  var audio_context = Player.audio_context;
+
+  this.perlin = typeof options.perlin !== &#039;undefined&#039; ? options.perlin : true;
+  this.reverb = typeof options.reverb !== &#039;undefined&#039; ? options.reverb : 4;
+  this.delayTime = options.delayTime || 0;
+  this.oscAFreq = typeof options.oscAFreq !== &#039;undefined&#039; ? options.oscAFreq : 150;
+  this.oscBFreq = typeof options.oscBFreq !== &#039;undefined&#039; ? options.oscBFreq : 200;
+  this.oscARate = typeof options.oscARate !== &#039;undefined&#039; ? options.oscARate : 0.001;
+  this.oscBRate = typeof options.oscBRate !== &#039;undefined&#039; ? options.oscBRate : -0.001;
+  this.freqMin = typeof options.freqMin !== &#039;undefined&#039; ? options.freqMin : 150;
+  this.freqMax = typeof options.freqMax !== &#039;undefined&#039; ? options.freqMax : 200;
+  this.volume = typeof options.volume !== &#039;undefined&#039; ? options.volume : 0.25;
+  this.volumeMin = typeof options.volumeMin !== &#039;undefined&#039; ? options.volumeMin : 0.5;
+  this.volumeMax = typeof options.volumeMax !== &#039;undefined&#039; ? options.volumeMax : 0.75;
+  this.beforeStep = options.beforeStep || function() {};
+
+  this.gain = new Gain(audio_context);
+  this.oscA = new Oscillator(audio_context);
+  this.oscB = new Oscillator(audio_context);
+  this.convolver = new Convolver(audio_context);
+  this.delay = new Delay(audio_context);
+
+  this.oscA.toggle();
+  this.oscB.toggle();
+  this.convolver.setEffect(this.reverb);
+  this.delay.setDelay(this.delayTime);
+  this.gain.changeGain(this.volume);
+  this.oscA.changeFrequency(this.oscAFreq);
+  this.oscB.changeFrequency(this.oscBFreq);
+
+  this.configure(audio_context);
+
+  if (this.perlin) {
+    this._loop();
+  }
+};
+
+/**
+ * Sets audio node configuration.
+ * @param  {Object} context A Web Audio object.
+ */
+Player.prototype.configure = function(context) {
+  this._connect(this.gain.node, context.destination);
+  this._connect(this.delay.node, this.gain.node);
+  this._connect(this.convolver.node, this.delay.node);
+  this._connect(this.oscA.node, this.convolver.node);
+  this._connect(this.oscB.node, this.convolver.node);
+};
+
+/**
+ * Connects audio nodes.
+ * @param  {Object} nodeA A Web Audio node.
+ * @param  {Object} nodeB A Web Audio node.
+ * @private
+ */
+Player.prototype._connect = function(nodeA, nodeB) {
+  nodeA.connect(nodeB);
+};
+
+/**
+ * Updates audio node properties.
+ * @private
+ */
+Player.prototype._loop = function() {
+
+  this.beforeStep.call(this);
+
+  var valA = Utils.map(SimplexNoise.noise(this.clock * this.oscARate, 0),
+    -1, 1, this.freqMin, this.freqMax);
+
+  this.oscA.changeFrequency(valA);
+
+  var valB = Utils.map(SimplexNoise.noise(this.clock * this.oscBRate, 0),
+    -1, 1, this.freqMin, this.freqMax);
+
+  var volume = Utils.map(SimplexNoise.noise(this.clock * this.oscARate, 0),
+    -1, 1, this.volumeMin, this.volumeMax);
+
+  this.oscB.changeFrequency(valB);
+  this.gain.changeGain(volume);
+
+  this.clock++;
+
+  if (typeof window.requestAnimationFrame !== &#039;undefined&#039;) {
+    window.requestAnimationFrame(this._loop.bind(this));
+  }
+};
+
+(function init(g){
+  try {
+    Player.audio_context = new (g.AudioContext || g.webkitAudioContext);
+  } catch (e) {
+    throw new Error(&#039;No web audio support in this browser&#039;);
+  }
+}(window));
+
+module.exports = Player;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

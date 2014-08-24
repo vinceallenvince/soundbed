@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="keywords" content="animation, DOM, renderer" />
+  <meta name="description" content="A DOM-based rendering engine." />
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name='apple-mobile-web-app-capable' content='yes' />
+  <title>SoundBed | An ambient audio generator.</title>
+  <script src="scripts/soundbed.min.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+    <h1>SoundBed</h1>
+    <h3>Turn on your speakers.</h3>
+    <p>Player configuration:</p>
+    <ul>
+      <li>oscAFreq: 60</li>
+      <li>oscBFreq: 120</li>
+      <li>oscARate: 0.01</li>
+      <li>oscBRate: -0.01</li>
+      <li>freqMin: 60</li>
+      <li>freqMax: 120</li>
+      <li>volumeMin: 0.1</li>
+      <li>volumeMax: 1</li>
+    </ul>
+    <div>Gain value: <span id="gainVal">0</span>
+    <script type="text/javascript" charset="utf-8">
+
+    (function init(g){
+      try {
+        var audio_context = new (g.AudioContext || g.webkitAudioContext);
+      } catch (e) {
+        var msg = 'No Web Audio support in this browser.';
+        var div = document.createElement('div');
+        div.textContent = msg;
+        div.style.color = 'red';
+        document.body.appendChild(div)
+        throw new Error(msg);
+      }
+
+      var gainVal = document.getElementById('gainVal');
+      var player = new SoundBed.Player();
+      player.init({
+        oscAFreq: 60,
+        oscBFreq: 120,
+        oscARate: 0.01,
+        oscBRate: -0.01,
+        freqMin: 60,
+        freqMax: 120,
+        volumeMin: 0.1,
+        volumeMax: 1,
+        beforeStep: function() {
+          gainVal.textContent = (this.gain.node.gain.value.toFixed(2));
+        }
+      });
+
+    }(window));
+
+    </script>
+  </body>
+</html>
