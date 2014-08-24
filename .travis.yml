@@ -30,4 +30,4 @@ deploy:
 env:
   global:
   - GH_REF: github.com/vinceallenvince/soundbed.git
-  - secure: ZLqSZ6DXP0D+fHuvPYhc9/uDv26O7VxI63KsgrOt5xoLF1hMLXMb+AZA8Jh/NRFbJ9bY/uB6PTzovr6x9xkESIwf9bYfH5jkLVt35Lkd7bM7VD/wbeMIASpwEGOxCa1woLnCL6TVnxvE5RbJNhzPEB10pWBeZV8MFTZGjS0YSdQ=
+  - secure: PNRQMKSbJVmFOSHPz/VZUX/sk7eTjW7DmIZEt6uzWX6H0fE0ZBNcBpYs7hKmM+33nDbbcPYVfOgW5ANkBx9Yt5hdPzV90Ih0fWsbyrabDotr3CPPwiBflA6ECIccu6YILl/tzzzsz9xjfNaVfWzd1IWr8q8+1LZjcRIoIDKunz0=

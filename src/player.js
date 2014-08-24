@@ -26,7 +26,18 @@ Player.audio_context = null;
 /**
  * Configures an audio context.
  * @param {Object} [opt_options=] A map of initial properties.
+ * @param {boolean} [opt_options.perlin = true] Set to true chnage the oscillators' frequency via Perlin noise.
  * @param {number} [opt_options.reverb = 4] Reverb level.
+ * @param {number} [opt_options.delayTime = 0] Delay time.
+ * @param {number} [opt_options.oscAFreq = 150] Oscillator A's initial frequency.
+ * @param {number} [opt_options.oscBFreq = 200] Oscillator B's initial frequency.
+ * @param {number} [opt_options.oscARate = 0.001] Oscillator A's cycle rate through its frequency's min/max.
+ * @param {number} [opt_options.oscBRate = -0.001] Oscillator B's cycle rate through its frequency's min/max.
+ * @param {number} [opt_options.freqMin = 150] The oscillators' minimum frequency.
+ * @param {number} [opt_options.freqMax = 200] The oscillators' maximum frequency.
+ * @param {number} [opt_options.volume = 0.25] The player's initial volume. Valid values between 0 and 1.
+ * @param {number} [opt_options.volumeMin = 0.1] The player's minimum volume. Valid values between 0 and 1.
+ * @param {number} [opt_options.volumeMax= 0.25] The player's maximum volume. Valid values between 0 and 1.
  */
 Player.prototype.init = function(opt_options) {
 
@@ -35,7 +46,7 @@ Player.prototype.init = function(opt_options) {
 
   this.perlin = typeof options.perlin !== 'undefined' ? options.perlin : true;
   this.reverb = typeof options.reverb !== 'undefined' ? options.reverb : 4;
-  this.delay = options.delay || 0;
+  this.delayTime = options.delayTime || 0;
   this.oscAFreq = typeof options.oscAFreq !== 'undefined' ? options.oscAFreq : 150;
   this.oscBFreq = typeof options.oscBFreq !== 'undefined' ? options.oscBFreq : 200;
   this.oscARate = typeof options.oscARate !== 'undefined' ? options.oscARate : 0.001;
@@ -55,7 +66,7 @@ Player.prototype.init = function(opt_options) {
   this.oscA.toggle();
   this.oscB.toggle();
   this.convolver.setEffect(this.reverb);
-  this.delay.setDelay(this.delay);
+  this.delay.setDelay(this.delayTime);
   this.gain.changeGain(this.volume);
   this.oscA.changeFrequency(this.oscAFreq);
   this.oscB.changeFrequency(this.oscBFreq);

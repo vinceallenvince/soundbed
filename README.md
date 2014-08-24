@@ -56,6 +56,56 @@ In the browser, the SoundBed namespace is exposed.
 </html>
 ```
 
+##Configure
+
+By default, a SoundBed player creates two Web Audio Oscillator nodes and cycles their frequencies in opposite directions inside an RequestAnimationFrame loop. Each frame it maps Perlin noise to a minimum/maximum range to determine the frequency.
+
+You can pass the following options when initializing a Player.
+
+ *    perlin  (default = true)
+      Set to true chnage the oscillators' frequency via Perlin noise.
+
+ *    reverb
+      Reverb level. Valid values are 0 - 5 and map to the following:
+      0 - none
+      1 - inverse
+      2 - small
+      3 - medium
+      4 - large
+      5 - huge
+
+
+ *    delayTime (default = 0)
+      Delay time.
+
+ *    oscAFreq (default = 150)
+      Oscillator A's initial frequency.
+
+ *    oscBFreq (default = 200)
+      Oscillator B's initial frequency.
+
+ *    oscARate (default = 0.001)
+      Oscillator A's cycle rate through its frequency's min/max.
+
+ *    oscBRate (default = -0.001)
+      Oscillator B's cycle rate through its frequency's min/max.
+
+ *    freqMin (default = 150)
+      The oscillators' minimum frequency.
+
+ *    freqMax (default = 200)
+      The oscillators' maximum frequency.
+
+ *    volume (default = 0.25)
+      The player's initial volume. Valid values between 0 and 1.
+
+ *    volumeMin (default = 0.1)
+      The player's minimum volume. Valid values between 0 and 1.
+
+ *    volumeMax (default = 0.25)
+      The player's maximum volume. Valid values between 0 and 1.
+
+
 Please review [the docs](http://vinceallenvince.github.io/soundbed/doc/) or check out the [examples](http://vinceallenvince.github.io/soundbed/).
 
 ##Building this project
