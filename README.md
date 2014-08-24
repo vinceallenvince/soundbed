@@ -60,15 +60,15 @@ In the browser, the SoundBed namespace is exposed.
 
 ##Configure
 
-By default, a SoundBed player creates two Web Audio [Oscillator](http://webaudio.github.io/web-audio-api/#the-oscillatornode-interface) nodes and cycles their frequencies in opposite directions inside an [RequestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame) loop. Each frame it maps [Perlin noise](http://en.wikipedia.org/wiki/Perlin_noise) to a minimum/maximum range to determine the frequency.
+By default, a SoundBed player creates two Web Audio [Oscillator](http://webaudio.github.io/web-audio-api/#the-oscillatornode-interface) nodes and cycles their frequencies in opposite directions inside an [RequestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame) loop. In each frame the player maps [Perlin noise](http://en.wikipedia.org/wiki/Perlin_noise) to a minimum/maximum range to determine the frequency. It also cycles the overall volume using the Perlin values.
 
 You can pass the following options when initializing a Player.
 
- *    perlin (default = true)
+ *    *perlin* (default = true)
 
       When set to true, the oscillators' frequencies cycle via Perlin noise.
 
- *    reverb
+ *    *reverb*
 
       Reverb level. Valid values are 0 - 5 and map to the following:
 
@@ -85,43 +85,43 @@ You can pass the following options when initializing a Player.
       5 = huge
 
 
- *    delayTime (default = 0)
+ *    *delayTime* (default = 0)
 
       Delay time.
 
- *    oscAFreq (default = 150)
+ *    *oscAFreq* (default = 150)
 
       Oscillator A's initial frequency.
 
- *    oscBFreq (default = 200)
+ *    *oscBFreq* (default = 200)
 
       Oscillator B's initial frequency.
 
- *    oscARate (default = 0.001)
+ *    *oscARate* (default = 0.001)
 
-      Oscillator A's cycle rate through its frequency's min/max.
+      Oscillator A's cycle rate through its frequency min/max.
 
- *    oscBRate (default = -0.001)
+ *    *oscBRate* (default = -0.001)
 
-      Oscillator B's cycle rate through its frequency's min/max.
+      Oscillator B's cycle rate through its frequency min/max.
 
- *    freqMin (default = 150)
+ *    *freqMin* (default = 150)
 
-      The oscillators' minimum frequency.
+      Both oscillators' minimum frequency.
 
- *    freqMax (default = 200)
+ *    *freqMax* (default = 200)
 
-      The oscillators' maximum frequency.
+      Both oscillators' maximum frequency.
 
- *    volume (default = 0.25)
+ *    *volume* (default = 0.25)
 
       The player's initial volume. Valid values between 0 and 1.
 
- *    volumeMin (default = 0.1)
+ *    *volumeMin* (default = 0.1)
 
       The player's minimum volume. Valid values between 0 and 1.
 
- *    volumeMax (default = 0.25)
+ *    *volumeMax* (default = 0.25)
 
       The player's maximum volume. Valid values between 0 and 1.
 
