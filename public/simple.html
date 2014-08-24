@@ -12,8 +12,21 @@
   <body>
     <h1>SoundBed</h1>
     <h3>Turn on your speakers.</h3>
+    <p>Player configuration:</p>
+    <ul>
+      <li>oscAFreq: 60</li>
+      <li>oscBFreq: 120</li>
+      <li>oscARate: 0.01</li>
+      <li>oscBRate: -0.01</li>
+      <li>freqMin: 60</li>
+      <li>freqMax: 120</li>
+      <li>volumeMin: 0.1</li>
+      <li>volumeMax: 1</li>
+    </ul>
+    <div>Gain value: <span id="gainVal">0</span>
     <script type="text/javascript" charset="utf-8">
 
+      var gainVal = document.getElementById('gainVal');
       var player = new SoundBed.Player();
       player.init({
         oscAFreq: 60,
@@ -23,7 +36,10 @@
         freqMin: 60,
         freqMax: 120,
         volumeMin: 0.1,
-        volumeMax: 1
+        volumeMax: 1,
+        beforeStep: function() {
+          gainVal.textContent = (this.gain.node.gain.value.toFixed(2));
+        }
       });
 
     </script>

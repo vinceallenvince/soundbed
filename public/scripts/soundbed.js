@@ -487,6 +487,8 @@ var Convolver = _dereq_('./convolver'),
     SimplexNoise = _dereq_('quietriot'),
     Utils = _dereq_('drawing-utils-lib');
 
+// TODO: create play/pause methods
+
 /**
  * Creates a Player.
  * @constructor
@@ -506,18 +508,19 @@ Player.audio_context = null;
 /**
  * Configures an audio context.
  * @param {Object} [opt_options=] A map of initial properties.
- * @param {boolean} [opt_options.perlin = true] Set to true chnage the oscillators' frequency via Perlin noise.
+ * @param {boolean} [opt_options.perlin = true] When set to true, the oscillators' frequencies cycle via Perlin noise.
  * @param {number} [opt_options.reverb = 4] Reverb level.
  * @param {number} [opt_options.delayTime = 0] Delay time.
  * @param {number} [opt_options.oscAFreq = 150] Oscillator A's initial frequency.
  * @param {number} [opt_options.oscBFreq = 200] Oscillator B's initial frequency.
- * @param {number} [opt_options.oscARate = 0.001] Oscillator A's cycle rate through its frequency's min/max.
- * @param {number} [opt_options.oscBRate = -0.001] Oscillator B's cycle rate through its frequency's min/max.
+ * @param {number} [opt_options.oscARate = 0.001] Oscillator A's cycle rate through its frequency min/max.
+ * @param {number} [opt_options.oscBRate = -0.001] Oscillator B's cycle rate through its frequency min/max.
  * @param {number} [opt_options.freqMin = 150] The oscillators' minimum frequency.
  * @param {number} [opt_options.freqMax = 200] The oscillators' maximum frequency.
  * @param {number} [opt_options.volume = 0.25] The player's initial volume. Valid values between 0 and 1.
  * @param {number} [opt_options.volumeMin = 0.1] The player's minimum volume. Valid values between 0 and 1.
  * @param {number} [opt_options.volumeMax= 0.25] The player's maximum volume. Valid values between 0 and 1.
+ * @param {Function} [opt_options.beforeStep = function() {}] A function called at the beginning of each animation frame.
  */
 Player.prototype.init = function(opt_options) {
 
@@ -536,6 +539,7 @@ Player.prototype.init = function(opt_options) {
   this.volume = typeof options.volume !== 'undefined' ? options.volume : 0.25;
   this.volumeMin = typeof options.volumeMin !== 'undefined' ? options.volumeMin : 0.1;
   this.volumeMax = typeof options.volumeMax !== 'undefined' ? options.volumeMax : 0.25;
+  this.beforeStep = options.beforeStep || function() {};
 
   this.gain = new Gain(audio_context);
   this.oscA = new Oscillator(audio_context);
@@ -554,7 +558,7 @@ Player.prototype.init = function(opt_options) {
   this.configure(audio_context);
 
   if (this.perlin) {
-    this.loop();
+    this._loop();
   }
 };
 
@@ -585,6 +589,8 @@ Player.prototype._connect = function(nodeA, nodeB) {
  * @private
  */
 Player.prototype._loop = function() {
+
+  this.beforeStep.call(this);
 
   var valA = Utils.map(SimplexNoise.noise(this.clock * this.oscARate, 0),
     -1, 1, this.freqMin, this.freqMax);

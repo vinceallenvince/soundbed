@@ -125,6 +125,9 @@ You can pass the following options when initializing a Player.
 
       The player's maximum volume. Valid values between 0 and 1.
 
+ *    *beforeStep* (default = function() {})
+
+      A function called at the beginning of each animation frame.
 
 Please review [the docs](http://vinceallenvince.github.io/soundbed/doc/) or check out the [examples](http://vinceallenvince.github.io/soundbed/).
 

@@ -40,6 +40,7 @@ Player.audio_context = null;
  * @param {number} [opt_options.volume = 0.25] The player's initial volume. Valid values between 0 and 1.
  * @param {number} [opt_options.volumeMin = 0.1] The player's minimum volume. Valid values between 0 and 1.
  * @param {number} [opt_options.volumeMax= 0.25] The player's maximum volume. Valid values between 0 and 1.
+ * @param {Function} [opt_options.beforeStep = function() {}] A function called at the beginning of each animation frame.
  */
 Player.prototype.init = function(opt_options) {
 
@@ -58,6 +59,7 @@ Player.prototype.init = function(opt_options) {
   this.volume = typeof options.volume !== 'undefined' ? options.volume : 0.25;
   this.volumeMin = typeof options.volumeMin !== 'undefined' ? options.volumeMin : 0.1;
   this.volumeMax = typeof options.volumeMax !== 'undefined' ? options.volumeMax : 0.25;
+  this.beforeStep = options.beforeStep || function() {};
 
   this.gain = new Gain(audio_context);
   this.oscA = new Oscillator(audio_context);
@@ -76,7 +78,7 @@ Player.prototype.init = function(opt_options) {
   this.configure(audio_context);
 
   if (this.perlin) {
-    this.loop();
+    this._loop();
   }
 };
 
@@ -107,6 +109,8 @@ Player.prototype._connect = function(nodeA, nodeB) {
  * @private
  */
 Player.prototype._loop = function() {
+
+  this.beforeStep.call(this);
 
   var valA = Utils.map(SimplexNoise.noise(this.clock * this.oscARate, 0),
     -1, 1, this.freqMin, this.freqMax);
