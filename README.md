@@ -31,7 +31,32 @@ var SoundBed = require('../src/soundbed');
 var soundbed = new SoundBed();
 ```
 
-Please review [the docs](http://vinceallenvince.github.io/soundbed/doc/)  or check out the [examples](http://vinceallenvince.github.io/soundbed/).
+In the browser, the SoundBed namespace is exposed.
+
+```
+<html>
+  <head>
+    <script src="scripts/soundbed.min.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+    <script>
+      var player = new SoundBed.Player();
+      player.init({
+        oscAFreq: 60,
+        oscBFreq: 120,
+        oscARate: 0.01,
+        oscBRate: -0.01,
+        freqMin: 60,
+        freqMax: 120,
+        volumeMin: 0.1,
+        volumeMax: 1
+      });
+    </script>
+  </body>
+</html>
+```
+
+Please review [the docs](http://vinceallenvince.github.io/soundbed/doc/) or check out the [examples](http://vinceallenvince.github.io/soundbed/).
 
 ##Building this project
 
