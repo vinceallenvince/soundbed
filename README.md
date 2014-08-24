@@ -4,7 +4,7 @@
 
 An ambient audio generator.
 
-Use SoundBed to generate audio for animation, simulations or general ambient effects in a web browser. The module uses the [Web Audo API](http://webaudio.github.io/web-audio-api/) and by default will generate a low volume hum that naturally varies in frequency. Use the options below for different configurations. Your browser [must support](http://caniuse.com/#feat=audio-api) the Web Audio API.
+Use SoundBed to generate audio for animation, simulations or general ambient effects in a web browser. The module uses the [Web Audo API](http://webaudio.github.io/web-audio-api/) and by default will generate a low, rumbling hum that naturally varies in frequency. Use the options below for different configurations. Your browser [must support](http://caniuse.com/#feat=audio-api) the Web Audio API.
 
 ##Install
 

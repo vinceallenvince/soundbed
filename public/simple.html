@@ -26,6 +26,18 @@
     <div>Gain value: <span id="gainVal">0</span>
     <script type="text/javascript" charset="utf-8">
 
+    (function init(g){
+      try {
+        var audio_context = new (g.AudioContext || g.webkitAudioContext);
+      } catch (e) {
+        var msg = 'No Web Audio support in this browser.';
+        var div = document.createElement('div');
+        div.textContent = msg;
+        div.style.color = 'red';
+        document.body.appendChild(div)
+        throw new Error(msg);
+      }
+
       var gainVal = document.getElementById('gainVal');
       var player = new SoundBed.Player();
       player.init({
@@ -41,6 +53,8 @@
           gainVal.textContent = (this.gain.node.gain.value.toFixed(2));
         }
       });
+
+    }(window));
 
     </script>
   </body>
