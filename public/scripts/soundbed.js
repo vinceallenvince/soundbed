@@ -4,13 +4,12 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 var SoundBed = {
-  Player: _dereq_('./src/player'),
-  Gain: _dereq_('./src/gain')
+  Player: _dereq_('./src/player')
 };
 
 module.exports = SoundBed;
 
-},{"./src/gain":8,"./src/player":9}],2:[function(_dereq_,module,exports){
+},{"./src/player":8}],2:[function(_dereq_,module,exports){
 /*jshint supernew:true */
 /** @namespace */
 var Utils = {
@@ -479,14 +478,12 @@ Oscillator.prototype.changeFrequency = function(val) {
 
 module.exports = Oscillator;
 },{}],8:[function(_dereq_,module,exports){
-module.exports=_dereq_(6)
-},{}],9:[function(_dereq_,module,exports){
 /*jshint -W056 */
 
-var Convolver = _dereq_('./Convolver'),
-    Delay = _dereq_('./Delay'),
-    Gain = _dereq_('./Gain'),
-    Oscillator = _dereq_('./Oscillator'),
+var Convolver = _dereq_('./convolver'),
+    Delay = _dereq_('./delay'),
+    Gain = _dereq_('./gain'),
+    Oscillator = _dereq_('./oscillator'),
     SimplexNoise = _dereq_('quietriot'),
     Utils = _dereq_('drawing-utils-lib');
 
@@ -607,6 +604,6 @@ Player.prototype.loop = function() {
 
 module.exports = Player;
 
-},{"./Convolver":4,"./Delay":5,"./Gain":6,"./Oscillator":7,"drawing-utils-lib":2,"quietriot":3}]},{},[1])
+},{"./convolver":4,"./delay":5,"./gain":6,"./oscillator":7,"drawing-utils-lib":2,"quietriot":3}]},{},[1])
 (1)
 });

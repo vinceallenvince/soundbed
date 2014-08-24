@@ -1,9 +1,9 @@
 /*jshint -W056 */
 
-var Convolver = require('./Convolver'),
-    Delay = require('./Delay'),
-    Gain = require('./Gain'),
-    Oscillator = require('./Oscillator'),
+var Convolver = require('./convolver'),
+    Delay = require('./delay'),
+    Gain = require('./gain'),
+    Oscillator = require('./oscillator'),
     SimplexNoise = require('quietriot'),
     Utils = require('drawing-utils-lib');
 
@@ -83,6 +83,7 @@ Player.prototype.configure = function(context) {
  * Connects audio nodes.
  * @param  {Object} nodeA A Web Audio node.
  * @param  {Object} nodeB A Web Audio node.
+ * @private
  */
 Player.prototype._connect = function(nodeA, nodeB) {
   nodeA.connect(nodeB);
@@ -90,8 +91,9 @@ Player.prototype._connect = function(nodeA, nodeB) {
 
 /**
  * Updates audio node properties.
+ * @private
  */
-Player.prototype.loop = function() {
+Player.prototype._loop = function() {
 
   var valA = Utils.map(SimplexNoise.noise(this.clock * this.oscARate, 0),
     -1, 1, this.freqMin, this.freqMax);
@@ -110,7 +112,7 @@ Player.prototype.loop = function() {
   this.clock++;
 
   if (typeof window.requestAnimationFrame !== 'undefined') {
-    window.requestAnimationFrame(this.loop.bind(this));
+    window.requestAnimationFrame(this._loop.bind(this));
   }
 };
 

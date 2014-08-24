@@ -3,8 +3,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 var SoundBed = {
-  Player: require('./src/player'),
-  Gain: require('./src/gain')
+  Player: require('./src/player')
 };
 
 module.exports = SoundBed;
