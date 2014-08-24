@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "An ambient audio generator.",
   "keywords": "utilities",
-  "main": "./src/soundbed.js",
+  "main": "main.js",
   "devDependencies": {
     "browserify": "^4.1.10",
     "coverify": "^1.0.7",
@@ -34,5 +34,9 @@
     "email": "vince@vinceallen.com",
     "twitter": "@vinceallenvince"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "quietriot": "~0.1.2",
+    "drawing-utils-lib": "~0.1.3"
+  }
 }

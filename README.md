@@ -31,7 +31,7 @@ var SoundBed = require('../src/soundbed');
 var soundbed = new SoundBed();
 ```
 
-Please review [the docs](http://vinceallenvince.github.io/soundbed/doc/)  or check out the [examples](http://vinceallenvince.github.io/soundbed/)..
+Please review [the docs](http://vinceallenvince.github.io/soundbed/doc/)  or check out the [examples](http://vinceallenvince.github.io/soundbed/).
 
 ##Building this project
 
