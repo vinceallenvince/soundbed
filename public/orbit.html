@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="keywords" content="JavaScript, Framework, Animation, Natural, System" />
+  <meta name="description" content="FloraJS simulates natural systems using JavaScript." />
+  <meta name="viewport" content = "user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name='apple-mobile-web-app-capable' content='yes' />
+  <meta property='og:title' content='FloraJS' />
+  <meta property='og:url' content='http://www.florajs.com' />
+  <meta property='og:site_name' content='FloraJS' />
+  <title>FloraJS | Simulate natural systems with JavaScript</title>
+  <link rel="stylesheet" href="css/flora.min.css" type="text/css" charset="utf-8" />
+  <script src="scripts/flora.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/quietriot.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/soundbed.min.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+
+      Flora.System.setup(function() {
+        var world = this.add('World', {
+          gravity: new Flora.Vector(),
+          c: 0
+        });
+
+        var player = new SoundBed.Player();
+        player.init({
+          perlin: true,
+          oscARate: 0.02,
+          oscBRate: 0.02,
+          reverb: 1,
+          freqMin: 300,
+          freqMax: 800
+        });
+
+        var initLocation = new Flora.Vector(world.width / 2, world.height / 2);
+        var offset = new Flora.Vector(1, 1);
+
+        var agent = this.add('Agent', {
+          colorMode: 'hsl',
+          color: [0, 100, 100],
+          beforeStep: function() {
+
+            var s = Flora.Utils.map(player.oscA.node.frequency.value,
+                player.freqMin, player.freqMax, 1, world.width / 3);
+            this.width = s;
+            this.height = s;
+
+            var col = Flora.Utils.map(player.oscA.node.frequency.value,
+                player.freqMin, player.freqMax, 0, 20);
+
+            var sat = Flora.Utils.map(player.oscA.node.frequency.value,
+                player.freqMin, player.freqMax, 50, 100);
+
+            var lum = Flora.Utils.map(player.oscA.node.frequency.value,
+                player.freqMin, player.freqMax, 30, 70);
+
+            this.color = [col, sat, lum];
+
+            var rot = Flora.Utils.map(player.oscA.node.frequency.value,
+                player.freqMin, player.freqMax, 0, 360);
+            this.angle = rot;
+
+            offset.normalize();
+            var m = Flora.Utils.map(player.oscA.node.frequency.value,
+                player.freqMin, player.freqMax, 0, world.width / 3);
+            offset.mult(m);
+
+            var a = Flora.Utils.map(player.oscA.node.frequency.value,
+                player.freqMin, player.freqMax, 0.01, 0.1);
+            offset.rotate(a);
+
+            var vec = Flora.Vector.VectorAdd(initLocation, offset);
+            this.location.x = vec.x;
+            this.location.y = vec.y;
+          }
+        });
+
+      });
+      Flora.System.loop();
+    </script>
+  </body>
+</html>

@@ -78,6 +78,8 @@ Player.prototype.init = function(opt_options) {
   this.configure(audio_context);
 
   if (this.perlin) {
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     this._loop();
   }
 };
