@@ -12,7 +12,7 @@ function Oscillator(context, opt_options) {
   var options = opt_options || {};
   this.node = context.createOscillator();
   this.node.type = options.type || 'sine';
-  this.node.frequency.value = options.frequency !== 'undefined' ? options.frequency : 150;
+  this.node.frequency.value = typeof options.frequency !== 'undefined' ? options.frequency : 150;
   this._isPlaying = false;
 }
 
