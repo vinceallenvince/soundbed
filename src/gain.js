@@ -8,7 +8,7 @@
 function Gain(context, opt_options) {
   var options = opt_options || {};
   this.node = context.createGain();
-  this.node.gain.value = options.value === 'undefined' ? 0.1 : options.value;
+  this.node.gain.value = typeof options.value === 'undefined' ? 0.1 : options.value;
 }
 
 /**
