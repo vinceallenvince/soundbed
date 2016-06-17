@@ -14,7 +14,7 @@ deploy:
 - provider: npm
   email: vince@vinceallen.com
   api_key:
-    secure: HPYONkvLf5tn0MsgHXNRChS4daQMSVaTsTFpNfB/x0lglXCWqWTsr9FIF5o6sof4GIsBc2C0eeN6EYLm/lKvNU/xiIJ+2jLlLoQQAVkKsbjrA5YglnEAs+hDFxLHO3wDUPX3inEB3hWTAcHcp1Ay7hx7bJ+kktOwZG/AQC92i3Y=
+    secure: M8zRan3ShuLIoZBnxaHnZvn7pJwMiWglU0xHHspbacmRB7HnAX1+bRNybiPPZYqlLCcR4l/Bddn87dt/l9Ynzl9Ipb/VlhpR6WKOtqTZdmxZ0a9D2Rx2fv1MmO9Om+iGDhGGFRD1kUSNiZJ75WUM1EMGyoPVJ955UbzorG3U0PM=
   on:
     tags: true
     all_branches: true
